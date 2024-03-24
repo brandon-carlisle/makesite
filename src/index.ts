@@ -1,7 +1,5 @@
-import { Component } from "./createComponent";
+let test: number = 1;
 
-const MyDiv = new Component("div", "hello");
+test = "lol";
 
-MyDiv.render();
-
-console.log("helloworld");
+console.log(test);
