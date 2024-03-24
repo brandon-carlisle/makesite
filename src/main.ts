@@ -1,3 +1,4 @@
+import "./style.css";
 import { Component } from "./component.ts";
 
 const root = document.getElementById("root")!;
