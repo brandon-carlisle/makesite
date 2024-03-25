@@ -1,7 +1,10 @@
+// Init project
 import "./style.css";
 import { Component } from "./component.ts";
 
 const root = document.getElementById("root")!;
+
+// Create components
 
 const Title = new Component("h1", null, ["title"]).render({
   children: "My site",
