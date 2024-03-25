@@ -1,21 +1,43 @@
 export class Component {
-  el: keyof HTMLElementTagNameMap;
-  content: string;
-  parent: HTMLElement;
+  type: keyof HTMLElementTagNameMap;
+  parent: HTMLElement | null;
 
-  constructor(
-    el: keyof HTMLElementTagNameMap,
-    content: string,
-    parent: HTMLElement
-  ) {
-    this.el = el;
-    this.content = content;
+  constructor(type: keyof HTMLElementTagNameMap, parent: HTMLElement | null) {
+    this.type = type;
     this.parent = parent;
   }
 
-  render() {
-    const elementToRender = document.createElement(this.el);
-    elementToRender.textContent = this.content;
-    this.parent.appendChild(elementToRender);
+  render({ children }: { children: HTMLElement | string | null }) {
+    const createdElement = document.createElement(this.type);
+
+    if (!this.parent) {
+      if (!children) {
+        return createdElement;
+      }
+
+      if (typeof children === "string") {
+        const textNode = document.createTextNode(children);
+        createdElement.appendChild(textNode);
+        return createdElement;
+      }
+
+      createdElement.appendChild(children);
+      return createdElement;
+    }
+
+    this.parent.appendChild(createdElement);
+
+    if (!children) {
+      return createdElement;
+    }
+
+    if (typeof children === "string") {
+      const textNode = document.createTextNode(children);
+      createdElement.appendChild(textNode);
+      return createdElement;
+    }
+
+    createdElement.appendChild(children);
+    return createdElement;
   }
 }
